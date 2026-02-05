@@ -7,7 +7,7 @@ export default function TikTokLoader() {
         {/* Magenta circle */}
         <div className="absolute inset-0 z-30 w-full h-full">
           <svg
-            fill="#0A70B8"
+            fill="#fff"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >

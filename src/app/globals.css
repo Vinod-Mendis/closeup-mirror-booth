@@ -81,3 +81,21 @@ body {
 .animate-camera-flash {
   animation: camera-flash 0.5s ease-out;
 }
+
+.font-righteous {
+  font-family: var(--font-righteous), sans-serif;
+}
+
+/* styles.css */
+.slow-spin {
+  animation: spin 10s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -24,7 +24,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const VideoTextOverlayApp = () => {
   // Configurable recording settings
   const MAX_RECORDING_DURATION = parseInt(
-    process.env.NEXT_PUBLIC_MAX_RECORDING_DURATION || "30"
+    process.env.NEXT_PUBLIC_MAX_RECORDING_DURATION || "30",
   ); // seconds
   const COUNTDOWN_DURATION = 3; // seconds
 
@@ -135,7 +135,7 @@ const VideoTextOverlayApp = () => {
 
   useEffect(() => {
     const img = new Image();
-    img.src = "/images/white-frame-6.png";
+    img.src = "/images/closeup-frame.png";
     img.onload = () => setFrame(img);
   }, []);
 
@@ -180,7 +180,7 @@ const VideoTextOverlayApp = () => {
     } catch (error) {
       console.error("Error accessing webcam:", error);
       alert(
-        "Could not access webcam. Please ensure you've granted permission."
+        "Could not access webcam. Please ensure you've granted permission.",
       );
     }
   };
@@ -262,8 +262,9 @@ const VideoTextOverlayApp = () => {
       // Add only background music (no microphone audio)
       if (musicAudio) {
         try {
-          const audioContext = new (window.AudioContext ||
-            window.webkitAudioContext)();
+          const audioContext = new (
+            window.AudioContext || window.webkitAudioContext
+          )();
           const musicSource = audioContext.createMediaElementSource(musicAudio);
           const destination = audioContext.createMediaStreamDestination();
 
@@ -363,7 +364,7 @@ const VideoTextOverlayApp = () => {
           -canvas.height / 2, // x position (using height because rotated)
           -canvas.width / 2, // y position (using width because rotated)
           canvas.height, // width (swapped)
-          canvas.width // height (swapped)
+          canvas.width, // height (swapped)
         );
 
         // Restore context state
@@ -499,7 +500,7 @@ const VideoTextOverlayApp = () => {
           -freezeCanvas.height / 2,
           -freezeCanvas.width / 2,
           freezeCanvas.height,
-          freezeCanvas.width
+          freezeCanvas.width,
         );
         freezeCtx.restore();
 
@@ -615,7 +616,7 @@ const VideoTextOverlayApp = () => {
         0,
         0,
         displayCanvas.width,
-        displayCanvas.height
+        displayCanvas.height,
       );
 
       // Draw logo to both canvases
@@ -644,7 +645,7 @@ const VideoTextOverlayApp = () => {
           customDiv.x,
           customDiv.y,
           customDiv.width,
-          customDiv.height
+          customDiv.height,
         );
 
         ctx.fillStyle = "#000000";
@@ -654,7 +655,7 @@ const VideoTextOverlayApp = () => {
         ctx.fillText(
           customDiv.text,
           customDiv.x + customDiv.width / 2,
-          customDiv.y + customDiv.height / 2
+          customDiv.y + customDiv.height / 2,
         );
 
         // Draw to display canvas
@@ -663,7 +664,7 @@ const VideoTextOverlayApp = () => {
           customDiv.x,
           customDiv.y,
           customDiv.width,
-          customDiv.height
+          customDiv.height,
         );
 
         displayCtx.fillStyle = "#000000";
@@ -673,7 +674,7 @@ const VideoTextOverlayApp = () => {
         displayCtx.fillText(
           customDiv.text,
           customDiv.x + customDiv.width / 2,
-          customDiv.y + customDiv.height / 2
+          customDiv.y + customDiv.height / 2,
         );
       }
 
@@ -696,8 +697,9 @@ const VideoTextOverlayApp = () => {
     if (musicAudio) {
       try {
         // Create audio context and connect music
-        const audioContext = new (window.AudioContext ||
-          window.webkitAudioContext)();
+        const audioContext = new (
+          window.AudioContext || window.webkitAudioContext
+        )();
         const musicSource = audioContext.createMediaElementSource(musicAudio);
         const destination = audioContext.createMediaStreamDestination();
         musicSource.connect(destination);
@@ -1073,7 +1075,7 @@ const VideoTextOverlayApp = () => {
         {
           method: "POST",
           body: formData,
-        }
+        },
       );
 
       const data = await response.json();
@@ -1130,7 +1132,7 @@ const VideoTextOverlayApp = () => {
         {
           method: "POST",
           body: formData,
-        }
+        },
       );
 
       const data = await response.json();
@@ -1207,7 +1209,7 @@ const VideoTextOverlayApp = () => {
   };
 
   return (
-    <div className="h-svh w-full flex flex-col justify-center items-center bg-gradient-to-br from-[#AFE3F9] via-white to-[#AFE3F9] overflow-hidden relative">
+    <div className="h-svh w-full flex flex-col justify-center items-center bg-gradient-to-br from-[#442E8D] via-[#702A8C] to-[#442E8D] overflow-hidden relative">
       {/* Reset button --------------------------- */}
       <button
         className="w-12 h-12 flex items-center justify-center p-2 absolute z-[999] bottom-10 left-10 bg-red-500/40 text-white rounded-full"
@@ -1216,6 +1218,24 @@ const VideoTextOverlayApp = () => {
         <RefreshCcw />{" "}
       </button>
       {/* Reset button --------------------------- */}
+
+      {!videoUrl && (
+        <div className="bg-[#2C2151] absolute top-0 z-10 py-14 px-32 rounded-b-3xl shadow-2xl">
+          <img src="/images/closeup-logo.png" className="w-[32rem] h-auto" />
+        </div>
+      )}
+      <div className="absolute bottom-20 z-0 opacity-5">
+        <img src="/images/closeup-logo.png" className="w-[52rem] h-auto" />
+      </div>
+
+      <img
+        src="/images/pattern.png"
+        className="absolute top-0 w-full h-auto opacity-20 z-0 float"
+      />
+      <img
+        src="/images/pattern.png"
+        className="absolute bottom-0 rotate-180 w-full h-auto opacity-10 z-0 float"
+      />
 
       <div className="flex flex-col justify-center items-center w-full ">
         <div className="h-svh w-full flex flex-col justify-center items-center">
@@ -1360,51 +1380,22 @@ const VideoTextOverlayApp = () => {
                       Start
                     </button> */}
                     </div>
-                    <div className="flex items-center  flex-col gap-4 absolute bottom-48 z-20">
-                      <img src="/images/logoset.png" className="w-96 h-auto" />
-                    </div>
-                    <h1 className="text-8xl text-black font-bold absolute -translate-y-20">
+
+                    <img
+                      src="/images/union.svg"
+                      className="absolute inset-0 w-[28rem] h-auto z-0  top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 slow-spin"
+                    />
+
+                    <h1 className="text-8xl text-white font-bold absolute font-righteous ">
                       START
                     </h1>
-                    {/* circles */}
-                    <>
-                      <img
-                        src="/images/circle.png"
-                        className="opacity-30 absolute -translate-y-20 animate-[spin_3s_linear_infinite]"
-                      />
-                    </>
                   </div>
                 )}
-                {/* circles */}
-                <>
-                  <img
-                    src="/images/circle.png"
-                    className="opacity-10 absolute animate-[spin_8s_linear_infinite] w-[30rem] h-auto -bottom-40 -left-40"
-                  />
-                  <img
-                    src="/images/circle.png"
-                    className="opacity-10 absolute animate-[spin_8s_linear_infinite] w-[50rem] h-auto -top-80 -right-64"
-                  />
-                </>
-                {/* Halfton */}
-                <>
-                  <img
-                    src="/images/halftone.png"
-                    className=" absolute w-[220rem] h-auto -top-100 -left-100"
-                  />
-                  <img
-                    src="/images/halftone.png"
-                    className=" absolute w-[220rem] h-auto -bottom-100 -right-100"
-                  />
-                </>
 
                 {/* Post process UI */}
                 {showLogo && (
                   <div className="fixed inset-0 flex flex-col justify-center items-center ">
                     <TikTokLoader />
-                    <div className="flex items-center  flex-col gap-4 absolute bottom-24 z-20">
-                      <img src="/images/logoset.png" className="" />
-                    </div>
                   </div>
                 )}
 
@@ -1512,7 +1503,7 @@ const VideoTextOverlayApp = () => {
                 <div className="mt-12 p-6 h-[370px] bg-white rounded-lg border-2 border-gray-200 w-sm flex flex-col justify-center items-center relative z-30">
                   {isQRLoading ? (
                     <div className="flex flex-col items-center justify-center py-12">
-                      <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mb-4"></div>
+                      <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-[#2C2151] mb-4"></div>
                       <p className="text-gray-600 text-lg">
                         Generating QR Code...
                       </p>
@@ -1537,7 +1528,7 @@ const VideoTextOverlayApp = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 20 }}
                       transition={{ duration: 0.4, delay: 0.3 }}
-                      className="text-white text-4xl active:scale-95 min-w-52 bg-black py-8 px-16 rounded-full z-20 transition"
+                      className="text-[#702A8C] text-4xl active:scale-95 min-w-52 bg-white py-8 px-16 rounded-full z-20 transition font-righteous uppercase"
                       onClick={() => window.location.reload()}
                     >
                       Record a New Video
@@ -1611,31 +1602,6 @@ const VideoTextOverlayApp = () => {
 
           {isProcessing && (
             <div className="fixed inset-0 bg-gradient-to-br from-[#AFE3F9] via-white to-[#AFE3F9]  flex items-center justify-center z-50">
-              <div className="flex items-center  flex-col gap-4 absolute bottom-24 z-20">
-                <img src="/images/logoset.png" className="" />
-              </div>
-              {/* circles */}
-              <>
-                <img
-                  src="/images/circle.png"
-                  className="opacity-10 absolute animate-[spin_8s_linear_infinite] w-[30rem] h-auto -bottom-40 -left-40"
-                />
-                <img
-                  src="/images/circle.png"
-                  className="opacity-10 absolute animate-[spin_8s_linear_infinite] w-[50rem] h-auto -top-80 -right-64"
-                />
-              </>
-              {/* Halfton */}
-              <>
-                <img
-                  src="/images/halftone.png"
-                  className=" absolute w-[220rem] h-auto -top-100 -left-100"
-                />
-                <img
-                  src="/images/halftone.png"
-                  className=" absolute w-[220rem] h-auto -bottom-100 -right-100"
-                />
-              </>
               <div className="text-center flex flex-col gap-12">
                 <TikTokLoader />
                 <p className="text-white/40 text-3xl">Getting Ready...</p>
