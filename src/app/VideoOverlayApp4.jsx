@@ -1404,7 +1404,7 @@ const VideoTextOverlayApp = () => {
                 <AnimatePresence mode="wait">
                   {videoUrl && (
                     <motion.div
-                      className="relative w-fit h-full border-[12px] border-[#0A70B8] overflow-hidden"
+                      className="relative w-fit h-full border-[12px] border-[#2C2151] overflow-hidden"
                       key="video-preview"
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
@@ -1569,7 +1569,7 @@ const VideoTextOverlayApp = () => {
                   className="flex min-h-[60rem] mx-12 justify-center items-center w-3xl relative"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <div className="bg-[#65D2E9] rounded-2xl h-full w-full absolute -translate-x-6 translate-y-6"></div>
+                  <div className=" rounded-2xl h-full w-full absolute -translate-x-6 translate-y-6"></div>
                   <div className="bg-white border-2 border-gray-200 rounded-2xl h-full w-full absolute z-10 flex flex-col items-center p-10">
                     <div className="flex flex-col border-amber-700 justify-center items-center w-full text-center">
                       <p className="text-4xl w-full font-medium text-[#FA2D6C] py-12">
