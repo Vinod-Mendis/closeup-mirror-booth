@@ -1006,66 +1006,62 @@ const VideoTextOverlayApp = () => {
     try {
       const filename = `video-${Date.now()}.webm`;
 
-      console.log(
-        "📤 Starting upload, file size:",
-        (blob.size / 1024 / 1024).toFixed(2),
-        "MB",
-      );
-
-      // Create FormData
-      const formData = new FormData();
-      formData.append("video", blob, filename);
-
-      console.log("📦 FormData created");
-
-      // Upload to R2
-      const response = await fetch("/api/upload-r2", {
+      // Get upload URL
+      const urlResponse = await fetch("/api/get-upload-url", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename }),
       });
 
-      console.log("📡 Response status:", response.status);
-      console.log("📡 Response ok:", response.ok);
+      const { uploadUrl, publicUrl } = await urlResponse.json();
 
-      // Check if response is ok before parsing JSON
-      if (!response.ok) {
-        const text = await response.text();
-        console.error("❌ Response not ok. Body:", text);
-        throw new Error(`Upload failed with status ${response.status}`);
-      }
+      // Upload with progress tracking using XMLHttpRequest
+      await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
 
-      const data = await response.json();
-      console.log("✅ Upload response:", data);
+        // Track upload progress
+        xhr.upload.addEventListener("progress", (e) => {
+          if (e.lengthComputable) {
+            const percentComplete = Math.round((e.loaded / e.total) * 100);
+            console.log(`📊 Upload progress: ${percentComplete}%`);
+            // You can update UI here: setUploadProgress(percentComplete);
+          }
+        });
 
-      if (data.url) {
-        setCloudinaryUrl(data.url);
+        xhr.addEventListener("load", () => {
+          if (xhr.status === 200) {
+            resolve();
+          } else {
+            reject(new Error(`Upload failed: ${xhr.status}`));
+          }
+        });
 
-        // Save to MongoDB
-        try {
-          const backendResponse = await fetch("/api/videos", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ videoUrl: data.url }),
-          });
+        xhr.addEventListener("error", () => {
+          reject(new Error("Upload failed"));
+        });
 
-          const backendData = await backendResponse.json();
-          console.log("Backend response:", backendData);
-          const generatedVideoId = backendData.videoId;
-          setVideoId(generatedVideoId);
+        xhr.open("PUT", uploadUrl);
+        xhr.setRequestHeader("Content-Type", "video/webm");
+        xhr.send(blob);
+      });
 
-          const shareUrl = `${window.location.origin}/${generatedVideoId}`;
-          setShareUrl(shareUrl);
-          setIsQRLoading(false);
-        } catch (backendError) {
-          console.error("Error sending to backend:", backendError);
-          setIsQRLoading(false);
-          alert("Failed to save to database. Please try again.");
-        }
-      } else {
-        throw new Error("No URL in response");
-      }
+      console.log("✅ Upload complete!");
+
+      // Save to database
+      setCloudinaryUrl(publicUrl);
+
+      const backendResponse = await fetch("/api/videos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ videoUrl: publicUrl }),
+      });
+
+      const backendData = await backendResponse.json();
+      setVideoId(backendData.videoId);
+      setShareUrl(`${window.location.origin}/${backendData.videoId}`);
+      setIsQRLoading(false);
     } catch (error) {
-      console.error("Error uploading to R2:", error);
+      console.error("❌ Upload error:", error);
       setIsQRLoading(false);
       alert("Upload failed: " + error.message);
     }
