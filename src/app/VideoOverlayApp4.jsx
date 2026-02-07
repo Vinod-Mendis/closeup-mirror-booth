@@ -1263,6 +1263,9 @@ const VideoTextOverlayApp = () => {
       <div className="absolute bottom-20 z-0 opacity-5">
         <img src="/images/closeup-logo.png" className="w-[52rem] h-auto" />
       </div>
+      <div className="absolute bottom-20 z-0">
+        <img src="/images/logo-2.png" className="w-[20rem] h-auto" />
+      </div>
 
       <img
         src="/images/pattern.png"

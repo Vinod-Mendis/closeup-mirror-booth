@@ -367,9 +367,12 @@ export default function VideoViewPage({ videoId }) {
 
   if (loading) {
     return (
-      <div className="min-h-svh hs relative overflow-hidden flex items-center justify-center px-4 bg-gradient-to-br from-[#442E8D] via-[#702A8C] to-[#442E8D]">
-        <div className="bg-[#2C2151] absolute top-0 z-10 px-16 py-4 rounded-b-3xl shadow-2xl">
-          <img src="/images/closeup-logo.png" className="w-[14rem] h-auto" />
+      <div className="min-h-svh h-svh relative overflow-hidden flex items-center justify-center px-4 bg-gradient-to-br from-[#442E8D] via-[#702A8C] to-[#442E8D]">
+        <div className=" absolute top-0 z-10 px-16 py-4 flex items-center justify-between w-full bg-[#2C2151] rounded-b-3xl shadow-2xl max-w-sm mx-auto">
+          <div className="">
+            <img src="/images/logo-2.png" className="w-[5rem] h-auto" />
+          </div>
+          <img src="/images/closeup-logo.png" className="w-[8rem] h-auto" />
         </div>
 
         <div className="absolute bottom-5 z-0 opacity-5">
@@ -422,8 +425,11 @@ export default function VideoViewPage({ videoId }) {
   if (error) {
     return (
       <div className="min-h-svh hs relative overflow-hidden flex items-center justify-center px-4 bg-gradient-to-br from-[#442E8D] via-[#702A8C] to-[#442E8D]">
-        <div className="bg-[#2C2151] absolute top-0 z-10 px-16 py-4 rounded-b-3xl shadow-2xl">
-          <img src="/images/closeup-logo.png" className="w-[14rem] h-auto" />
+        <div className=" absolute top-0 z-10 px-16 py-4 flex items-center justify-between w-full bg-[#2C2151] rounded-b-3xl shadow-2xl max-w-sm mx-auto">
+          <div className="">
+            <img src="/images/logo-2.png" className="w-[5rem] h-auto" />
+          </div>
+          <img src="/images/closeup-logo.png" className="w-[8rem] h-auto" />
         </div>
 
         <div className="absolute bottom-5 z-0 opacity-5">
@@ -451,8 +457,11 @@ export default function VideoViewPage({ videoId }) {
 
   return (
     <div className="h-svh bg-white relative overflow-hidden flex flex-col justify-center items-center bg-gradient-to-br from-[#442E8D] via-[#702A8C] to-[#442E8D] px-4">
-      <div className="bg-[#2C2151] absolute top-0 z-10 px-16 py-4 rounded-b-3xl shadow-2xl">
-        <img src="/images/closeup-logo.png" className="w-[14rem] h-auto" />
+      <div className=" absolute top-0 z-10 px-16 py-4 flex items-center justify-between w-full bg-[#2C2151] rounded-b-3xl shadow-2xl max-w-sm mx-auto">
+        <div className="">
+          <img src="/images/logo-2.png" className="w-[5rem] h-auto" />
+        </div>
+        <img src="/images/closeup-logo.png" className="w-[8rem] h-auto" />
       </div>
 
       <div className="absolute bottom-5 z-0 opacity-5">
@@ -485,7 +494,7 @@ export default function VideoViewPage({ videoId }) {
         </motion.div>
       </header> */}
 
-      <main className="container flex-col flex justify-center items-center mx-auto px-4 py-6 sm:py-10 max-w-2xl">
+      <main className="container flex-col flex justify-center items-center mx-auto px-4 py-6 sm:py-10 max-w-2xl pt-36">
         <div className="relative rounded-2xl w-fit flex justify-center sm:rounded-3xl overflow-hidden mb-6 sm:mb-8 border-4 border-[#2C2151]">
           <AnimatePresence mode="wait">
             <motion.video
