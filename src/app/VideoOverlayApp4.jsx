@@ -163,7 +163,7 @@ const VideoTextOverlayApp = () => {
 
   useEffect(() => {
     const img = new Image();
-    img.src = "/images/closeup-frame.png";
+    img.src = "/images/closeup-frame2.png";
     img.onload = () => setFrame(img);
   }, []);
 
